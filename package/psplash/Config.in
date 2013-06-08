@@ -1,0 +1,10 @@
+config BR2_PACKAGE_PSPLASH
+	bool "psplash"
+	depends on BR2_USE_WCHAR
+	help
+	  Splash screen for embedded systems.
+
+	  http://git.yoctoproject.org/cgit/cgit.cgi/psplash
+
+comment "psplash requires a toolchain with WCHAR support"
+	depends on !BR2_USE_WCHAR
