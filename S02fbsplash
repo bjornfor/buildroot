@@ -1,0 +1,16 @@
+#!/bin/sh
+
+case "$1" in
+	start)
+		printf "Starting fbsplash..."
+		rm -f /tmp/fbsplash.pipe
+		mkfifo /tmp/fbsplash.pipe
+		fbsplash -s /linux-splash-640x480.ppm -i /etc/fbsplash.cfg -f /tmp/fbsplash.pipe &
+		echo "ok"
+		;;
+	stop)
+		printf "Stopping fbsplash..."
+		killall fbsplash
+		echo "ok"
+		;;
+esac
