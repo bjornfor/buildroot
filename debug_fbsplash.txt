@@ -1,0 +1,1 @@
+(echo 1; sleep 1; echo 10; sleep 1) | strace fbsplash -s /linux-splash-640x480.ppm -i /etc/fbsplash.cfg -f -
