@@ -607,6 +607,7 @@ endif
 					-f $(TARGET_DIR)/etc/ld.so.conf; \
 	else \
 		/sbin/ldconfig -r $(TARGET_DIR) \
+			       -C /etc/ld.so.cache \
 			       -f /etc/ld.so.conf; \
 	fi
 	( \
