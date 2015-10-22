@@ -607,7 +607,7 @@ endif
 					-f $(TARGET_DIR)/etc/ld.so.conf; \
 	else \
 		/sbin/ldconfig -r $(TARGET_DIR) \
-			       -f $(TARGET_DIR)/etc/ld.so.conf; \
+			       -f /etc/ld.so.conf; \
 	fi
 	( \
 		echo "NAME=Buildroot"; \
