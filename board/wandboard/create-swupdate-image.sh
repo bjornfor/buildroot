@@ -30,6 +30,10 @@
 # Run in <buildroot>/output/images/, so that we can use plain file names (no
 # sub-directories) in file paths. Without this, swupdate (webserver mode) seems
 # to choke on our .swu files. swupdate CLI handles it fine though.
+if [ "${BINARIES_DIR}" = "" ]; then
+	echo "ERROR: \$BINARIES_DIR is empty. If you're running outside of Buildroot, please set \$BINARIES_DIR to the root where the image files are."
+	exit 1
+fi
 cd "${BINARIES_DIR}"
 
 CONTAINER_VER="0.1"
