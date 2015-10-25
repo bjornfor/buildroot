@@ -13,4 +13,9 @@ genimage \
   --config "${GENIMAGE_CFG}"
 
 RET=${?}
+test ${RET} -ne 0 && exit 1
+
+./board/wandboard/create-swupdate-image.sh
+
+RET=${?}
 exit ${RET}
