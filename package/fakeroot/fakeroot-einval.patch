@@ -1,0 +1,63 @@
+From 42ff78804a5f1407cf4758032829f00cd62930e3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bj=C3=B8rn=20Forsman?= <bjorn.forsman@gmail.com>
+Date: Thu, 22 Oct 2015 10:43:56 +0200
+Subject: [PATCH] WIP: Fix *chown calls in user namespaces
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The Linux kernel returns EINVAL if the UID is invalid in the current
+user namespace (see <linux>/fs/open.c). Deal with it so that we can
+still fake root.
+
+TODO: Check that owner/group is 0 so that "real" invalid agruments are
+not accepted?
+
+Signed-off-by: Bjørn Forsman <bjorn.forsman@gmail.com>
+---
+ libfakeroot.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/libfakeroot.c b/libfakeroot.c
+index 68a95fb..70da8bc 100644
+--- a/libfakeroot.c
++++ b/libfakeroot.c
+@@ -792,7 +792,7 @@ int chown(const char *path, uid_t owner, gid_t group){
+     r=next_lchown(path,owner,group);
+   else
+     r=0;
+-  if(r&&(errno==EPERM))
++  if(r&&(errno==EPERM||errno==EINVAL))
+     r=0;
+ 
+   return r;
+@@ -819,7 +819,7 @@ int lchown(const char *path, uid_t owner, gid_t group){
+     r=next_lchown(path,owner,group);
+   else
+     r=0;
+-  if(r&&(errno==EPERM))
++  if(r&&(errno==EPERM||errno==EINVAL))
+     r=0;
+ 
+   return r;
+@@ -843,7 +843,7 @@ int fchown(int fd, uid_t owner, gid_t group){
+   else
+     r=0;
+ 
+-  if(r&&(errno==EPERM))
++  if(r&&(errno==EPERM||errno==EINVAL))
+     r=0;
+ 
+   return r;
+@@ -870,7 +870,7 @@ int fchownat(int dir_fd, const char *path, uid_t owner, gid_t group, int flags)
+   else
+     r=0;
+ 
+-  if(r&&(errno==EPERM))
++  if(r&&(errno==EPERM||errno==EINVAL))
+     r=0;
+ 
+   return r;
+-- 
+2.5.2
+
