@@ -58,7 +58,7 @@ software =
             {
                 filename = "rootfs.ext2";
                 device = "/dev/mmcblk2p1";
-		type = "raw";
+                type = "raw";
             }
             );
 
@@ -76,6 +76,7 @@ software =
             {
                 filename = "rootfs.ext2";
                 device = "/dev/mmcblk2p2";
+                type = "raw";
             }
             );
 
