@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Copyright (C) 2015-2016 Savoir-Faire Linux
 # Post image generation script.
